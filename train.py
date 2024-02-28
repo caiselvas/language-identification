@@ -13,7 +13,7 @@ def preprocess_text(text: str) -> str:
 		sent = re.sub(r'[/*\-"_+%&@=¬~<>^#»«]', '', sent) # Remove some non-alphabetic characters (not all, to keep some punctuation)
 		sent = re.sub(r'\d', '', sent) # Remove digits
 		sent = re.sub(r'\s+', ' ', sent) # Remove extra spaces
-		new_text += "  " + sent # Add two spaces to separate sentences
+		new_text += sent + "  " # Add two spaces to separate sentences
 	return new_text
 
 # Load original texts
