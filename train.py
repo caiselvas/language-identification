@@ -8,12 +8,13 @@ def preprocess_text(text: str) -> str:
 	new_text = ""
 	sents = text.split('\n')
 	for sent in sents:
-		sent.strip() # Remove leading and trailing spaces
 		sent = sent.lower() # Lowercase
-		sent = re.sub(r'[/*\-"_+%&@=¬~<>^#»«]', '', sent) # Remove some non-alphabetic characters (not all, to keep some punctuation)
+		sent = re.sub(r'[/*\-"_+%&@=¬~<>^#»«\(\)]', '', sent) # Remove some non-alphabetic characters (not all, to keep some punctuation)
 		sent = re.sub(r'\d', '', sent) # Remove digits
 		sent = re.sub(r'\s+', ' ', sent) # Remove extra spaces
-		new_text += sent + "  " # Add two spaces to separate sentences
+		sent = sent.strip() # Remove leading and trailing spaces
+		if sent:
+			new_text += sent + "  " # Add two spaces to separate sentences
 	return new_text
 
 # Load original texts
@@ -29,10 +30,11 @@ for file in os.listdir(directory):
 # Preprocess texts and save them in json files (one for train and one for test)
 train, test = {}, {}
 for file, text in texts_original.items():
+	preprocessed_text = preprocess_text(text)
 	if 'tst' in file:
-		test[file[:3]] = preprocess_text(text).split("  ") # Split text into sentences for test
+		test[file[:3]] = [sentence for sentence in preprocessed_text.split("  ") if sentence] # Split sentences and remove empty strings
 	else:
-		train[file[:3]] = preprocess_text(text)
+		train[file[:3]] = preprocessed_text
 
 with open("./preprocessed_langId/train.json", "w") as train_file:
 	json.dump(train, train_file)
