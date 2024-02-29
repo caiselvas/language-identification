@@ -49,6 +49,26 @@ for language in train.keys():
 	trigrams[language] = tmp
 	unique_chars[language] = len(set("".join("".join(a) for a in tmp.keys())))
 
+
+trigrams_val, unique_chars_val = {}, {}
+# For 10-folds cross-validation:
+for fold in range(10):
+	trigrams_val[fold], unique_chars_val[fold] = {}, {}
+	for language in train.keys():
+		val_lang = train[language].split("  ")
+		fold_size = len(val_lang)//10
+		train_fold = val_lang[fold*fold_size: (fold+1)*fold_size]
+		train_fold= "  ".join(train_fold)
+		test_fold = val_lang[:fold*fold_size] + val_lang[(fold+1)*fold_size:]
+
+		trigram_finder = TrigramCollocationFinder.from_words(train_fold)
+
+		tmp = {key: value for key, value in trigram_finder.ngram_fd.items() if value > 5}
+		tmp = {"".join(map(str, k)): v for k, v in tmp.items()}
+		
+		trigrams_val[fold][language]= (tmp, test_fold)
+		unique_chars_val[fold][language] = len(set("".join("".join(a) for a in tmp.keys())))
+
 # Convert trigrams to string in order to save the dictionary as a json file
 def dict_trigramtuple_to_string(d: dict) -> dict:
 	return {key: {"".join(k): v for k, v in value.items()} for key, value in d.items()}
@@ -60,4 +80,9 @@ with open("./weights/trigrams.json", "w") as trigrams_file:
 # Save unique_chars
 with open("./weights/unique_chars.json", "w") as unique_chars_file:
 	json.dump(unique_chars, unique_chars_file)
-	
+
+with open("./weights/validation_trigrams.json", "w") as validation_trigrams_file:
+	json.dump(trigrams_val, validation_trigrams_file)
+
+with open("./weights/validation_unique_chars.json", "w") as unique_chars_file_val:
+	json.dump(unique_chars_val, unique_chars_file_val)
