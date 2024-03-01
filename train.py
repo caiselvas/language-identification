@@ -56,7 +56,7 @@ trigrams_val, unique_chars_val = {}, {}
 
 for language in train.keys():
 	val_lang = train[language].split("  ")
-	fold_size = len(val_lang)//10
+	fold_size = len(val_lang)//3
 	random.shuffle(val_lang)
 	train_fold = val_lang[fold_size:]
 	train_fold= "  ".join(train_fold)
