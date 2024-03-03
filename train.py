@@ -10,7 +10,6 @@ def preprocess_text(text: str) -> str:
 	sents = text.split('\n')
 	for sent in sents:
 		sent = sent.lower() # Lowercase
-		sent = re.sub(r'[/*\-"_+%&@=¬~<>^#»«\(\):;]', '', sent) # Remove some non-alphabetic characters (not all, to keep some punctuation)
 		sent = re.sub(r'\d', '', sent) # Remove digits
 		sent = re.sub(r'\s+', ' ', sent) # Remove extra spaces
 		sent = sent.strip() # Remove leading and trailing spaces
@@ -47,7 +46,7 @@ with open("./preprocessed_langId/test.json", "w") as test_file:
 trigrams, unique_chars = {}, {}
 for language in train.keys():
 	trigram_finder = TrigramCollocationFinder.from_words(train[language])
-	tmp = {key: value for key, value in trigram_finder.ngram_fd.items() if value > 5}
+	tmp = {key: value for key, value in trigram_finder.ngram_fd.items() if value >= 5}
 	
 	trigrams[language] = tmp
 	unique_chars[language] = len(set("".join("".join(a) for a in tmp.keys())))
