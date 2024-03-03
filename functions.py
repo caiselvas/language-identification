@@ -18,11 +18,11 @@ def pau_discounting(delta: float, total_trigrams: int, trigram_counts: dict, tri
 
 def absolute_discounting(alpha: float, total_trigrams: int, trigram_counts: dict, b_value: int, trigram: tuple):
     count_trigram = trigram_counts.get(trigram, 0)
-    unique = len(trigram_counts)
+    unique = b_value - len(trigram_counts)
     if count_trigram == 0:
-        prob = ((b_value - unique)*alpha/unique)/total_trigrams
+        prob = ((b_value - unique)*alpha / unique) / total_trigrams
     else:
-        prob = ((count_trigram - alpha)/ total_trigrams)
+        prob = ((count_trigram - alpha) / total_trigrams)
     return prob
 
 def linear_discounting(alpha: float, total_trigrams: int, trigram_counts: dict, b_value: int, trigram: tuple):
