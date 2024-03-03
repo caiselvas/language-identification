@@ -68,7 +68,7 @@ for language in train.keys():
 	tmp = {key: value for key, value in trigram_finder.ngram_fd.items() if value > 5}
 	tmp = {"".join(map(str, k)): v for k, v in tmp.items()}
 	
-	trigrams_val[language]= (tmp, test_fold)
+	trigrams_val[language] = (tmp, test_fold)
 	unique_chars_val[language] = len(set("".join("".join(a) for a in tmp.keys())))
 
 # Convert trigrams to string in order to save the dictionary as a json file
