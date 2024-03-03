@@ -10,7 +10,7 @@ def preprocess_text(text: str) -> str:
 	sents = text.split('\n')
 	for sent in sents:
 		sent = sent.lower() # Lowercase
-		sent = re.sub(r'[/*\-"_+%&@=¬~<>^#»«\(\)]', '', sent) # Remove some non-alphabetic characters (not all, to keep some punctuation)
+		sent = re.sub(r'[/*\-"_+%&@=¬~<>^#»«\(\):;]', '', sent) # Remove some non-alphabetic characters (not all, to keep some punctuation)
 		sent = re.sub(r'\d', '', sent) # Remove digits
 		sent = re.sub(r'\s+', ' ', sent) # Remove extra spaces
 		sent = sent.strip() # Remove leading and trailing spaces
