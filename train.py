@@ -3,13 +3,38 @@ import re
 from nltk.collocations import TrigramCollocationFinder
 import json
 import random
+import spacy
+
+
+# Code for Named entities recongition
+"""
+spacys = {
+	"deu": spacy.load("de_core_news_sm"),
+	"eng": spacy.load("en_core_web_sm"),
+	"spa": spacy.load("es_core_news_sm"),
+	"ita": spacy.load("it_core_news_sm"),
+	"nld": spacy.load("nl_core_news_sm"),
+	"fra": spacy.load("fr_core_news_sm"),		  
+		  }
+"""
 
 # Function to preprocess texts
-def preprocess_text(text: str) -> str:
+def preprocess_text(text: str, language: str = None) -> str:
 	new_text = ""
 	sents = text.split('\n')
 	for sent in sents:
+		# Code for Named entities recognition
+		"""
+		if language != None:
+			nlp = spacys[language]
+			doc = nlp(sent)
+			entities = [(ent.start_char, ent.end_char) for ent in doc.ents if ent.label_ in ['ORG', 'LOC', 'PERSON', 'GPE', 'EVENT']]
+			for start, end in reversed(entities):
+				sent = sent[:start] + sent[end:]
+		"""
 		sent = sent.lower() # Lowercase
+		#sent = re.sub(r'[\u4e00-\u9fff]', '', sent) optional if you want to remove Chinese characters.
+		#For japanese, r'[\u3040-\u309F]', r'[\u30A0-\u30FF]' and '[\u4300-\u9faf]'
 		sent = re.sub(r'\d', '', sent) # Remove digits
 		sent = re.sub(r'\s+', ' ', sent) # Remove extra spaces
 		sent = sent.strip() # Remove leading and trailing spaces
@@ -30,7 +55,7 @@ for file in os.listdir(directory):
 # Preprocess texts and save them in json files (one for train and one for test)
 train, test = {}, {}
 for file, text in texts_original.items():
-	preprocessed_text = preprocess_text(text)
+	preprocessed_text = preprocess_text(text, file[:3])
 	if 'tst' in file:
 		test[file[:3]] = [sentence for sentence in preprocessed_text.split("  ") if sentence] # Split sentences and remove empty strings
 	else:
