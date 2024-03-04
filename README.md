@@ -11,7 +11,9 @@ The training set consists of 30,000 sentences for each language, while the test 
 The evaluation of the model, in terms of accuracy, is 99.8932%, which translates to only 64 errors.
 The confusion matrix is as follows:
 
-![image](https://github.com/caiselvass/Language_Identification/assets/117848447/127b53a6-21ef-46ea-b2e3-50516decb30e)
+<p align="center">
+  <img width="460" height="300" src="https://github.com/caiselvass/Language_Identification/assets/117848447/127b53a6-21ef-46ea-b2e3-50516decb30e">
+</p>
 
 ## Contents
 - **Original_langId**: Contains the dataset obtained from *Wortschats Leipzig Corpora*.
