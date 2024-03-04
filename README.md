@@ -1,6 +1,6 @@
 # Language Identification using Character Trigrams
 
-Language identification is a task in human language processing (HLP, NLP in English). In this project, the use of trigrams is explored in order to create a model capable of solving this problem. Additionally, 3 different smoothing functions have been implemented and tested: Lidstone, Linear Discounting, and Absolute Discounting.
+Language identification is a task in human language processing (HLP or NLP). In this project, the use of trigrams is explored in order to create a model capable of solving this problem. Additionally, 3 different smoothing functions have been implemented and tested: Lidstone, Linear Discounting, and Absolute Discounting.
 
 ## Dataset
 The data used as a training and test corpus comes from *Wortschats Leipzig Corpora*, which contains texts in different languages. Specifically, Spanish, Italian, English, French, Dutch, and German have been used.
