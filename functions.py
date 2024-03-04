@@ -33,13 +33,8 @@ def linear_discounting(alpha: float, total_trigrams: int, trigram_counts: dict, 
         prob = (1-alpha)*(count_trigram / total_trigrams)
     return prob
 
-def probs_total(b_value: int, text: str, model: dict, total_trigrams: int, smooth: Callable = lidstone_smooth, param: float = 0.5, probabilities: Optional[dict] = None):
-    trigram_finder = TrigramCollocationFinder.from_words(text)
+def probs_total(b_value: int, trigram_finder: object, model: dict, total_trigrams: int, smooth: Callable = lidstone_smooth, param: float = 0.5):
     prob_sec = 0
-    if probabilities == None:
-        for trigram, num_instances in trigram_finder.ngram_fd.items():
-            prob_sec += num_instances * math.log(smooth(param, trigram=trigram, b_value=b_value, total_trigrams=total_trigrams, trigram_counts=model))
-    else:
-        for trigram, num_instances in trigram_finder.ngram_fd.items():
-            prob_sec += num_instances * probabilities.get(trigram, probabilities["None"])
+    for trigram, num_instances in trigram_finder.ngram_fd.items():
+        prob_sec += num_instances * math.log(smooth(param, trigram=trigram, b_value=b_value, total_trigrams=total_trigrams, trigram_counts=model))
     return prob_sec
