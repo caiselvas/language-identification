@@ -41,5 +41,5 @@ def probs_total(b_value: int, text: str, model: dict, total_trigrams: int, smoot
             prob_sec += num_instances * math.log(smooth(param, trigram=trigram, b_value=b_value, total_trigrams=total_trigrams, trigram_counts=model))
     else:
         for trigram, num_instances in trigram_finder.ngram_fd.items():
-            prob_sec += num_instances * probabilities.get(trigram,math.log(smooth(param, trigram=trigram, b_value=b_value, total_trigrams=total_trigrams, trigram_counts=model)))
+            prob_sec += num_instances * probabilities.get(trigram, probabilities["None"])
     return prob_sec
