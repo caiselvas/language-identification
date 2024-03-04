@@ -54,6 +54,8 @@ for language in train.keys():
 
 trigrams_val, unique_chars_val = {}, {}
 
+sentences_val = {}
+
 for language in train.keys():
 	val_lang = train[language].split("  ")
 	fold_size = len(val_lang)//3
@@ -69,6 +71,12 @@ for language in train.keys():
 	
 	trigrams_val[language] = (tmp, test_fold)
 	unique_chars_val[language] = len(set("".join("".join(a) for a in tmp.keys())))
+
+	sentences_val[language] = []
+	for s in test_fold:
+		finder = TrigramCollocationFinder.from_words("  "+s+"  ")
+		sentences_val[language].append({k: v for k, v in finder.ngram_fd.items()})
+			
 
 # Convert trigrams to string in order to save the dictionary as a json file
 def dict_trigramtuple_to_string(d: dict) -> dict:
@@ -87,3 +95,19 @@ with open("./weights/validation_trigrams.json", "w") as validation_trigrams_file
 
 with open("./weights/validation_unique_chars.json", "w") as unique_chars_file_val:
 	json.dump(unique_chars_val, unique_chars_file_val)
+
+pre_trigrams = {}
+for k in test.keys():
+	pre_trigrams[k] = []
+	for s in test[k]:
+		finder = TrigramCollocationFinder.from_words("  "+s+"  ")
+		pre_trigrams[k].append({k: v for k, v in finder.ngram_fd.items()})
+
+
+with open("./weights/test.json", "w") as trigrams_file:
+	test_trigrams = {key: [{"".join(k): v for k, v in value.items()} for value in values] for key, values in pre_trigrams.items()}
+	json.dump(test_trigrams, trigrams_file)
+
+with open("./weights/validation_sent.json", "w") as trigrams_file:
+	val_sent_trigrams = {key: [{"".join(k): v for k, v in value.items()} for value in values] for key, values in sentences_val.items()}
+	json.dump(val_sent_trigrams, trigrams_file)
