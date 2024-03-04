@@ -1,29 +1,28 @@
 # Language Identification using Character Trigrams
 
-L'identificació del llenguatge és una tasca de processament del llenguatge huma (PLH, NLP en anglès). En aquest projecte, s'explora
-l'ús de trigrames per tal de crear un model capaç de resoldre aquest problema. Addicionalment, s'han implementat i provat 3 funcions de suavitzat (_smoothing_) diferents: Lidstone, Linear Discounting i Absolute Discounting.
+Language identification is a task in human language processing (HLP, NLP in English). In this project, the use of trigrams is explored in order to create a model capable of solving this problem. Additionally, 3 different smoothing functions have been implemented and tested: Lidstone, Linear Discounting, and Absolute Discounting.
 
 ## Dataset
-Les dades utilitzades com a corpus d'entrenament i de test provenen de *Wortschats Leipzig Corpora*, que conté texts en diferents llenguatges. Concretament s'han usat el castellà, l'italià, l'anglès, el francès, el neerlandès i l'alemany.
+The data used as a training and test corpus comes from *Wortschats Leipzig Corpora*, which contains texts in different languages. Specifically, Spanish, Italian, English, French, Dutch, and German have been used.
 
-El train consisteix en 30.000 frases de cada llenguatge, mentre que el test 10.000.
+The training set consists of 30,000 sentences for each language, while the test set has 10,000.
 
-## Evaluació
-L'evaluació del model, en termes d'accuracy, és d'un 99.8932%, que es tradueix en tan sols 64 errors.
-La matriu de confusió és la següent:
+## Evaluation
+The evaluation of the model, in terms of accuracy, is 99.8932%, which translates to only 64 errors.
+The confusion matrix is as follows:
 
 ![image](https://github.com/caiselvass/Language_Identification/assets/117848447/127b53a6-21ef-46ea-b2e3-50516decb30e)
 
-## Continguts
-- **Original_langId**: Conté el dataset obtingut de *Wortschats Leipzig Corpora*.
-- **Preprocessed_langId**: Conté els datasets preprocessats.
-- **Weights**: Conté els paràmetres del model (tant pel test com pel validation).
-- **Train.py**: Inclou codi pel preprocessat dels textos i per la creació dels arxius json.
-- **Main.ipynb**: Notebook amb el validation i el test del model. Part principal.
-- **Report**: Documentació detallada sobre les decisions preses, justificacions, resultats i conclusions.
-- **Requeriments**: python 11.+ , sklearn, matplotlib, seaborn, nltk, (spacy en cas de detectar noms propis).
+## Contents
+- **Original_langId**: Contains the dataset obtained from *Wortschats Leipzig Corpora*.
+- **Preprocessed_langId**: Contains the preprocessed datasets.
+- **Weights**: Contains the model parameters (both for the test and the validation).
+- **Train.py**: Includes code for the text preprocessing and for the creation of json files.
+- **Main.ipynb**: Notebook with the validation and the test of the model. Main part.
+- **Report**: Detailed documentation on the decisions taken, justifications, results, and conclusions.
+- **Requirements**: python 11.+ , sklearn, matplotlib, seaborn, nltk, (spacy in case of detecting proper names).
 
 ---
-**Referències**
+**References**
 - *Wortschats Leipzig Corpora*: [Link to Dataset](https://example.com/leipzig_corpora)
-- [Assignatura de PLH del GIA (UPC)](https://www.fib.upc.edu/ca/estudis/graus/grau-en-intelligencia-artificial/pla-destudis/assignatures/PLH-GIA)
+- [HLP Course of GIA (UPC)](https://www.fib.upc.edu/ca/estudis/graus/grau-en-intelligencia-artificial/pla-destudis/assignatures/PLH-GIA)
